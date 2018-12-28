@@ -35,16 +35,18 @@ class Short:
 
     #check if large url is in dict
         if largeUrl in self.urls:
-            #if it already exists do something
-            pass
+            #if it already exists
+            return self.convert_count_to_tinyurl(self.urls.get(largeUrl))
+    self.urls[largeurl] = self.count
     #get the count and convert it to the tinyurl
-        tinyurl = self.convert_count_to_tinyurl(count)
+        tinyurl = self.convert_count_to_tinyurl(self.count)
     #increment count
         self.count += 1
     #return the url
         return tinyurl
 
     def convert_count_to_tinyurl(self, count: int):
+        #takes a number and returns the tinyurl representation of it
         values = []
         if count == 0:
             return self.BASE_TINY_URL.get(count)
@@ -56,12 +58,14 @@ class Short:
 
 
     def parse_list_of_values(self, values: list):
+        #takes a list of integers and returns the tinyurl of it
         tinyurl = ""
         for i in values:
             tinyurl += (Short.BASE_TINY_URL.get(i))
         return tinyurl
 
     def convert_tinyurl_to_count(self, tinyurl: str):
+        #takes a tinyurl and returns the int representation of it
         count = 0
         temp_len = len(tinyurl)-1
         temp_dict = self.flip_dict(Short.BASE_TINY_URL)
@@ -78,14 +82,18 @@ class Short:
             new_dict[v] = k
         return new_dict
 
-    def convert_short_to_large(self):
+    def convert_short_to_large(self, tinyurl:str):
     # function to convert short url to large url
-    pass
+        count = self.convert_tinyurl_to_count(tinyurl)
+        for k,v in self.urls.items():
+            if self.urls[k] == count:
+                return k
+        return "Does not exist"
 
 
-    def check_url(self):
-    # function to check if url has been already created, if so return the short url already generated
-    pass
+
+    
+
 
 
 
