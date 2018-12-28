@@ -35,38 +35,38 @@ class Short:
 
     def convert_large_to_short(self, large_url: str):
         """
-        This function will take a large url and convert it into a tinyurl
+        This function will take a large url and convert it into a tiny_url
         :param large_url: str
-        :return: tinyurl: str
+        :return: tiny_url: str
         """
 
         # check if large url is in dict
         if large_url in self.urls:
             # if it already exists
-            return self.URL_TEMPLATE + self.convert_count_to_tinyurl(self.urls.get(large_url))
+            return self.URL_TEMPLATE + self.convert_count_to_tiny_url(self.urls.get(large_url))
 
         self.urls[large_url] = self.count
 
-        # get the count and convert it to the tinyurl
-        tinyurl = self.convert_count_to_tinyurl(self.count)
+        # get the count and convert it to the tiny_url
+        tiny_url = self.convert_count_to_tiny_url(self.count)
 
         # increment count
         self.count += 1
 
         # return the url
-        return self.URL_TEMPLATE + tinyurl
+        return self.URL_TEMPLATE + tiny_url
 
-    def convert_short_to_large(self, tinyurl: str):
+    def convert_short_to_large(self, tiny_url: str):
         """
-        This function will take a tinyurl and convert into a large_url
-        :param tinyurl: str
+        This function will take a tiny_url and convert into a large_url
+        :param tiny_url: str
         :return: large_url: str
         """
 
-        # check if tinyurl begins with URL_Template, else returns
-        if tinyurl.startswith(Short.URL_TEMPLATE):
-            tinyurl = self.parse_url(tinyurl)
-            count = self.convert_tinyurl_to_count(tinyurl)
+        # check if tiny_url begins with URL_Template, else returns
+        if tiny_url.startswith(Short.URL_TEMPLATE):
+            tiny_url = self.parse_url(tiny_url)
+            count = self.convert_tiny_url_to_count(tiny_url)
 
             # iterate through url dict, if value is found return key
             for k, v in self.urls.items():
@@ -75,11 +75,11 @@ class Short:
 
         return "Does not exist"
 
-    def convert_count_to_tinyurl(self, count: int):
+    def convert_count_to_tiny_url(self, count: int):
         """
-        This function will take a count integer and convert into a tinyurl
+        This function will take a count integer and convert into a tiny_url
         :param count: int
-        :return: tinyurl: str
+        :return: tiny_url: str
         """
 
         values = []
@@ -97,19 +97,19 @@ class Short:
 
         return self.parse_list_of_values(values)
 
-    def convert_tinyurl_to_count(self, tinyurl: str):
+    def convert_tiny_url_to_count(self, tiny_url: str):
         """
-        This function will take a tinyurl and convert into a count integer
-        :param tinyurl : str
+        This function will take a tiny_url and convert into a count integer
+        :param tiny_url : str
         :return: count : int
         """
         # parse url and init a reverse map dict
-        tinyurl = self.parse_url(tinyurl)
+        tiny_url = self.parse_url(tiny_url)
         count = 0
-        temp_len = len(tinyurl)-1
+        temp_len = len(tiny_url)-1
         temp_dict = self.flip_dict(Short.BASE_TINY_URL)
 
-        for i in tinyurl:
+        for i in tiny_url:
             # retrieve value and increment value to count
             value = temp_dict.get(i)
             count += value * Short.BASE**temp_len
@@ -123,16 +123,16 @@ class Short:
     def parse_list_of_values(values: list):
 
         """
-        This function takes a list of integers and converts them into a tinyurl representation
+        This function takes a list of integers and converts them into a tiny_url representation
         :param values: list of integers
-        :return: tinyurl : str
+        :return: tiny_url : str
         """
 
-        tinyurl = ""
+        tiny_url = ""
         for i in values:
-            tinyurl += (Short.BASE_TINY_URL.get(i))
+            tiny_url += (Short.BASE_TINY_URL.get(i))
 
-        return tinyurl
+        return tiny_url
 
     @staticmethod
     def flip_dict(base_map: dict):
@@ -150,14 +150,14 @@ class Short:
         return new_dict
 
     @staticmethod
-    def parse_url(tinyurl: str):
+    def parse_url(tiny_url: str):
         """
         This function will take a url and return the end of the url
-        :param tinyurl: str
+        :param tiny_url: str
         :return: new_url : str
         """
 
-        new_url = tinyurl[len(Short.URL_TEMPLATE):]
+        new_url = tiny_url[len(Short.URL_TEMPLATE):]
 
         return new_url
 
