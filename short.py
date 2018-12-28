@@ -21,6 +21,8 @@ class Short:
                      34: 'I', 35: 'J', 36: 'K', 37: 'L', 38: 'M', 39: 'N', 40: 'O', 41: 'P', 42: 'Q', 43: 'R', 44: 'S',
                      45: 'T', 46: 'U', 47: 'V', 48: 'W', 49: 'X', 50: 'Y', 51: 'Z', 52: '0', 53: '1', 54: '2', 55: '3',
                      56: '4', 57: '5', 58: '6', 59: '7', 60: '8', 61: '9'}
+    #Variable representing our base
+    BASE = 62
 
 
     def __init__(self):
@@ -43,24 +45,15 @@ class Short:
         return tinyurl
 
     def convert_count_to_tinyurl(self, count: int):
-        #if count is less than 62, check dictionary
-        if count < 62:
-            return Short.BASE_TINY_URL.get(count)
-        else:
-            values = []
-        #begin while loop with condition checking count !=0
-            while(count != 0):
-                temp_cnt = count
-                loop_cnt = 0
-                #begin nested while loop w/condition temp_count > 62
-                while(temp_cnt > 62):
-                    temp_cnt = temp_cnt // 62
-                    loop_cnt += 1
-                values.append(temp_cnt)
-                #subtract real_count by temp_count * times_we_loop_in_inner_loop
-                count = count - (temp_cnt * 62**loop_cnt)
-        #return tinyurl
-        return (self.parse_list_of_values(values))
+        values = []
+        if count == 0:
+            return self.BASE_TINY_URL.get(count)
+        while count > 0:
+            values.insert(0, count % Short.BASE)
+            count = count // Short.BASE
+        return self.parse_list_of_values(values)
+
+
 
     def parse_list_of_values(self, values: list):
         tinyurl = ""
@@ -68,14 +61,27 @@ class Short:
             tinyurl += (Short.BASE_TINY_URL.get(i))
         return tinyurl
 
+    def convert_tinyurl_to_count(self, tinyurl: str):
+        count = 0
+        temp_len = len(tinyurl)-1
+        temp_dict = self.flip_dict(Short.BASE_TINY_URL)
+        for i in tinyurl:
+            value = temp_dict.get(i)
+            count += value * Short.BASE**temp_len
+            temp_len -= 1
+        return count
+
+    #helper function to flip our map key and values
+    def flip_dict(map: dict):
+        new_dict = {}
+        for k, v in map.items():
+            new_dict[v] = k
+        return new_dict
 
     def convert_short_to_large(self):
     # function to convert short url to large url
     pass
 
-    def random_url_generator(self):
-    # random function to generate short url
-    pass
 
     def check_url(self):
     # function to check if url has been already created, if so return the short url already generated
