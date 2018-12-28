@@ -24,29 +24,41 @@ class Short:
     #Variable representing our base
     BASE = 62
 
+    #Variable representing url
+    URL_TEMPLATE = "http://www.uRshort.us/"
+
 
     def __init__(self):
         self.count = 0
         self.urls = {}
-        pass
 
     def convert_large_to_short(self, largeUrl: str):
     # function to convert large url to short url
 
-    #check if large url is in dict
+    # check if large url is in dict
         if largeUrl in self.urls:
-            #if it already exists
-            return self.convert_count_to_tinyurl(self.urls.get(largeUrl))
-    self.urls[largeurl] = self.count
-    #get the count and convert it to the tinyurl
+            # if it already exists
+            return self.URL_TEMPLATE + self.convert_count_to_tinyurl(self.urls.get(largeUrl))
+        self.urls[largeUrl] = self.count
+    # get the count and convert it to the tinyurl
         tinyurl = self.convert_count_to_tinyurl(self.count)
-    #increment count
+    # increment count
         self.count += 1
-    #return the url
-        return tinyurl
+    # return the url
+        return self.URL_TEMPLATE + tinyurl
+
+    def convert_short_to_large(self, tinyurl:str):
+        # function to convert short url to large url
+        if tinyurl.startswith(Short.URL_TEMPLATE):
+            tinyurl = self.parse_url(tinyurl)
+            count = self.convert_tinyurl_to_count(tinyurl)
+            for k,v in self.urls.items():
+                if self.urls[k] == count:
+                    return k
+        return "Does not exist"
 
     def convert_count_to_tinyurl(self, count: int):
-        #takes a number and returns the tinyurl representation of it
+        # takes a number and returns the tinyurl representation of it
         values = []
         if count == 0:
             return self.BASE_TINY_URL.get(count)
@@ -55,17 +67,9 @@ class Short:
             count = count // Short.BASE
         return self.parse_list_of_values(values)
 
-
-
-    def parse_list_of_values(self, values: list):
-        #takes a list of integers and returns the tinyurl of it
-        tinyurl = ""
-        for i in values:
-            tinyurl += (Short.BASE_TINY_URL.get(i))
-        return tinyurl
-
     def convert_tinyurl_to_count(self, tinyurl: str):
-        #takes a tinyurl and returns the int representation of it
+        # takes a tinyurl and returns the int representation of it
+        tinyurl = self.parse_url(tinyurl)
         count = 0
         temp_len = len(tinyurl)-1
         temp_dict = self.flip_dict(Short.BASE_TINY_URL)
@@ -75,6 +79,17 @@ class Short:
             temp_len -= 1
         return count
 
+
+###Private functions
+
+    def parse_list_of_values(self, values: list):
+        #takes a list of integers and returns the tinyurl of it
+        tinyurl = ""
+        for i in values:
+            tinyurl += (Short.BASE_TINY_URL.get(i))
+        return tinyurl
+
+
     #helper function to flip our map key and values
     def flip_dict(map: dict):
         new_dict = {}
@@ -82,17 +97,14 @@ class Short:
             new_dict[v] = k
         return new_dict
 
-    def convert_short_to_large(self, tinyurl:str):
-    # function to convert short url to large url
-        count = self.convert_tinyurl_to_count(tinyurl)
-        for k,v in self.urls.items():
-            if self.urls[k] == count:
-                return k
-        return "Does not exist"
+    # helper function to parse tinyurls to retrive base62 value
+    def parse_url(self, tinyurl: str):
+        new_url = tinyurl[len(Short.URL_TEMPLATE):]
+        return new_url
 
 
 
-    
+
 
 
 
