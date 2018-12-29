@@ -4,7 +4,7 @@ import os
 class BaseConfig:
 
     # BASE_URL = "http://www.uRshort.us/"
-    basedir = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
+    basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
     # MongoDB setup
     MONGODB_HOST = "localhost"

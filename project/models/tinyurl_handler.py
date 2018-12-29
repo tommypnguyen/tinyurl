@@ -53,10 +53,9 @@ class Short:
         # return the url
         return {"tiny_url_obj": db_object.return_dict(), "already_exist": False}
 
-
     # {Short Object.to_json
     # already_existed
-    #}
+    # }
 
     @staticmethod
     def convert_short_to_large(tiny_url: str) -> str:
@@ -120,8 +119,6 @@ class Short:
             temp_len -= 1
 
         return count
-
-
 
 # Private functions
 

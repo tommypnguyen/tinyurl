@@ -1,7 +1,7 @@
-import json
 from project.app import db
 
 URL_TEMPLATE = "http://uRshort.us/"
+
 
 class TinyUrl(db.Document):
     """
