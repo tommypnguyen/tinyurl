@@ -1,12 +1,26 @@
 from flask import request
 from flask import abort
 from flask import Blueprint
+from flask import redirect
 from project.models import TinyUrl
 from project.models import Short
 import json
 
 
 tinyurl_api_bp = Blueprint("tinyurl_api", "tinyurl_api")
+
+
+@tinyurl_api_bp.route('/url/<id>', methods=["GET"])
+def redirect_user(id):
+    if request.method != "GET":
+        abort(400)
+
+    id = "http://www.uRshort.us/" + id
+    url = Short.convert_short_to_large(id)
+    if url:
+        return redirect(url)
+    else:
+        return "Does not exist"
 
 
 @tinyurl_api_bp.route('/url', methods=["POST"])

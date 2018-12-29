@@ -1,6 +1,7 @@
 import json
 from project.app import db
 
+URL_TEMPLATE = "http://uRshort.us/"
 
 class TinyUrl(db.Document):
     """
@@ -13,13 +14,13 @@ class TinyUrl(db.Document):
 
     def return_dict(self) -> dict:
         """
-        This function will return json of the class attributes
+        This function will return dict of the class attributes
         :return: str
         """
 
         temp_dict = dict()
         temp_dict["long_url"] = self.long_url
-        temp_dict["short_url"] = self.short_url
+        temp_dict["short_url"] = URL_TEMPLATE + self.short_url
         temp_dict["id"] = self.id
 
         return temp_dict

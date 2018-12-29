@@ -41,7 +41,7 @@ class Short:
         """
         # check if large url is in dict
         temp_list = TinyUrl.objects
-        for i in TinyUrl.objects:
+        for i in temp_list:
             if large_url == i["long_url"]:
                 # if it already exists, return the object and set flag
                 return {"tiny_url_obj": i.return_dict(), "already_exist": True}
@@ -59,7 +59,7 @@ class Short:
     #}
 
     @staticmethod
-    def convert_short_to_large(tiny_url: str):
+    def convert_short_to_large(tiny_url: str) -> str:
         """
         This function will take a tiny_url and convert into a large_url
         :param tiny_url: str
@@ -68,7 +68,6 @@ class Short:
 
         # check if tiny_url begins with URL_Template, else returns
         if tiny_url.startswith(Short.URL_TEMPLATE):
-            tiny_url = Short.parse_url(tiny_url)
             count = Short.convert_tiny_url_to_count(tiny_url)
 
             # iterate through url dict, if value is found return key
@@ -76,7 +75,7 @@ class Short:
                 if i["id"] == count:
                     return i["long_url"]
 
-        return "Does not exist"
+        return ""
 
     @staticmethod
     def convert_count_to_tiny_url(count: int):
@@ -117,10 +116,12 @@ class Short:
         for i in tiny_url:
             # retrieve value and increment value to count
             value = temp_dict.get(i)
-            count += value * Short.BASE**temp_len
+            count += value * (Short.BASE**temp_len)
             temp_len -= 1
 
         return count
+
+
 
 # Private functions
 
@@ -165,6 +166,8 @@ class Short:
         new_url = tiny_url[len(Short.URL_TEMPLATE):]
 
         return new_url
+
+
 
 
 
