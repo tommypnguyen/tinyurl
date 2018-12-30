@@ -10,6 +10,5 @@ class BaseConfig:
     MONGODB_HOST = "localhost"
     MONGODB_PORT = 27017
 
-    SERVER_NAME = "0.0.0.0:80"
 
 

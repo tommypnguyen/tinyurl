@@ -17,7 +17,7 @@ def create_app() -> Flask:
     app.config.from_object(app_settings)
     app.config['MONGODB_SETTINGS'] = {
         'db': 'tinyUrlDataBase'}
-    
+
 
     # Initialize Database
     db.init_app(app)
