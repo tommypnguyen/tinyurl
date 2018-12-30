@@ -105,7 +105,7 @@ class Short:
         :return: count : int
         """
         # parse url and init a reverse map dict
-        tiny_url = Short.parse_url(tiny_url)
+        # tiny_url = Short.parse_url(tiny_url)
         count = 0
         temp_len = len(tiny_url)-1
         temp_dict = Short.flip_dict(Short.BASE_TINY_URL)

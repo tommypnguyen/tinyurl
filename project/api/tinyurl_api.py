@@ -21,6 +21,7 @@ def redirect_user(url_id):
 
     url = Short.convert_short_to_large(url_id)
     if url:
+        print(url)
         return redirect(url)
     else:
         return f'Does not exist:{url_id}'
