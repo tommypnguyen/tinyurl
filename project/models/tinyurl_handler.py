@@ -30,7 +30,7 @@ class Short:
     BASE = 62
 
     # Variable representing url
-    URL_TEMPLATE = "13.56.233.142/url/"
+    URL_TEMPLATE = "13.56.233.142/"
 
     @staticmethod
     def convert_large_to_short(large_url: str) -> dict:
@@ -65,14 +65,12 @@ class Short:
         :return: large_url: str
         """
 
-        # check if tiny_url begins with URL_Template, else returns
-        if tiny_url.startswith(Short.URL_TEMPLATE):
-            count = Short.convert_tiny_url_to_count(tiny_url)
+        count = Short.convert_tiny_url_to_count(tiny_url)
 
-            # iterate through url dict, if value is found return key
-            for i in TinyUrl.objects:
-                if i["id"] == count:
-                    return i["long_url"]
+        # iterate through url dict, if value is found return key
+        for i in TinyUrl.objects:
+            if i["id"] == count:
+                return i["long_url"]
 
         return ""
 

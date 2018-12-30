@@ -9,7 +9,7 @@ import json
 tinyurl_api_bp = Blueprint("tinyurl_api", "tinyurl_api")
 
 
-@tinyurl_api_bp.route('/url/<url_id>', methods=["GET"])
+@tinyurl_api_bp.route('/<url_id>', methods=["GET"])
 def redirect_user(url_id):
     """
     This route will take the url_id and redirect the user to the correct large url
@@ -19,12 +19,11 @@ def redirect_user(url_id):
     if request.method != "GET":
         abort(400)
 
-    url_id = "http://www.uRshort.us/" + url_id
     url = Short.convert_short_to_large(url_id)
     if url:
         return redirect(url)
     else:
-        return "Does not exist"
+        return f'Does not exist:{url_id}'
 
 
 @tinyurl_api_bp.route('/url', methods=["POST"])
