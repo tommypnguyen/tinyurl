@@ -1,6 +1,6 @@
 from project.app import db
 
-URL_TEMPLATE = "http://uRshort.us/"
+URL_TEMPLATE = "13.56.233.142/"
 
 
 class TinyUrl(db.Document):

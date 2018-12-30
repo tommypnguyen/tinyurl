@@ -30,7 +30,7 @@ class Short:
     BASE = 62
 
     # Variable representing url
-    URL_TEMPLATE = "http://www.uRshort.us/"
+    URL_TEMPLATE = "13.56.233.142/url/"
 
     @staticmethod
     def convert_large_to_short(large_url: str) -> dict:
