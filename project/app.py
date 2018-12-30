@@ -2,6 +2,7 @@ from flask import Flask
 from flask_mongoengine import MongoEngine
 from project.config import BaseConfig
 import os
+from flask_cors import CORS
 
 db = MongoEngine()
 
@@ -12,6 +13,7 @@ def create_app() -> Flask:
     :return: the flask app
     """
     app = Flask("TinyUrl")
+    CORS(app)
 
     app_settings = os.getenv("FLASK_CONFIG", BaseConfig)
     app.config.from_object(app_settings)
