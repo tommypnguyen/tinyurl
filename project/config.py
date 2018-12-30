@@ -10,6 +10,6 @@ class BaseConfig:
     MONGODB_HOST = "localhost"
     MONGODB_PORT = 27017
 
-    URL_PREFIX = "/api/v1"
+    SERVER_NAME = "0.0.0.0:80"
 
 
