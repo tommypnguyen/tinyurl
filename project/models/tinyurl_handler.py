@@ -118,6 +118,19 @@ class Short:
 
         return count
 
+    @staticmethod
+    def check_https(long_url: str):
+        """
+        This function will check if a long_url begins with http, if not, append it
+        :param long_url:
+        :return:
+        """
+        if not long_url.startswith("http"):
+            return "http://" + long_url
+        else:
+            return long_url
+
+
 # Private functions
 
     @staticmethod
