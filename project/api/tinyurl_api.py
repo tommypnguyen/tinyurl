@@ -11,6 +11,11 @@ tinyurl_api_bp = Blueprint("tinyurl_api", "tinyurl_api")
 
 @tinyurl_api_bp.route('/url/<url_id>', methods=["GET"])
 def redirect_user(url_id):
+    """
+    This route will take the url_id and redirect the user to the correct large url
+    :param url_id:
+    :return: str
+    """
     if request.method != "GET":
         abort(400)
 
@@ -24,6 +29,10 @@ def redirect_user(url_id):
 
 @tinyurl_api_bp.route('/url', methods=["POST"])
 def create_url():
+    """
+    This route will take the users input and create a TinyUrl object of the input
+    :return: json
+    """
     if request.method != "POST":
         abort(400)
 
